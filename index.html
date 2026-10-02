@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>COPACI | Sistema de Gestión</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         PANTALLA DE AUTENTICACIÓN
+         ========================= -->
+
+    <div id="authPage" class="auth-page">
+
+        <div class="auth-container">
+
+            <!-- LADO IZQUIERDO -->
+            <div class="auth-info">
+
+                <div class="logo">
+                    <span class="logo-cuadro">GG</span>
+
+                    <div>
+                        <strong>COPACI</strong>
+                        <small>Granjas Guadalupe</small>
+                    </div>
+                </div>
+
+                <div class="auth-info-text">
+                    <span class="etiqueta">SISTEMA DE GESTIÓN</span>
+
+                    <h1>
+                        Tu comunidad,<br>
+                        más cerca.
+                    </h1>
+
+                    <p>
+                        Accede al sistema para consultar información,
+                        gestionar servicios y participar en las actividades
+                        de tu comunidad.
+                    </p>
+                </div>
+
+                <div class="auth-decoration">
+                    <div class="circle circle1"></div>
+                    <div class="circle circle2"></div>
+                    <div class="building building1"></div>
+                    <div class="building building2"></div>
+                    <div class="building building3"></div>
+                </div>
+
+            </div>
+
+
+            <!-- LADO DERECHO -->
+            <div class="auth-form-container">
+
+                <!-- LOGIN -->
+                <div id="loginForm" class="form-box">
+
+                    <div class="form-header">
+                        <span class="form-icon">🔐</span>
+
+                        <h2>Bienvenido</h2>
+
+                        <p>
+                            Inicia sesión para continuar
+                        </p>
+                    </div>
+
+                    <form onsubmit="iniciarSesion(event)">
+
+                        <label for="loginEmail">
+                            Correo electrónico
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            placeholder="ejemplo@correo.com"
+                            required
+                        >
+
+                        <label for="loginPassword">
+                            Contraseña
+                        </label>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="••••••••"
+                            required
+                        >
+
+                        <div class="remember">
+                            <label>
+                                <input type="checkbox">
+                                Recordarme
+                            </label>
+
+                            <a href="#">
+                                ¿Olvidaste tu contraseña?
+                            </a>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            Iniciar sesión
+                        </button>
+
+                    </form>
+
+                    <p class="form-switch">
+                        ¿No tienes una cuenta?
+                        <button onclick="mostrarRegistro()">
+                            Crear cuenta
+                        </button>
+                    </p>
+
+                    <div class="demo-users">
+
+                        <strong>Usuarios de prueba</strong>
+
+                        <p>Administrador: admin@copaci.com / 123456</p>
+                        <p>Empleado: empleado@copaci.com / 123456</p>
+                        <p>Usuario: usuario@copaci.com / 123456</p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- REGISTRO -->
+                <div id="registerForm" class="form-box hidden">
+
+                    <div class="form-header">
+                        <span class="form-icon">👤</span>
+
+                        <h2>Crear cuenta</h2>
+
+                        <p>
+                            Regístrate para utilizar el sistema
+                        </p>
+                    </div>
+
+                    <form onsubmit="registrarUsuario(event)">
+
+                        <label for="registerName">
+                            Nombre completo
+                        </label>
+
+                        <input
+                            type="text"
+                            id="registerName"
+                            placeholder="Tu nombre"
+                            required
+                        >
+
+                        <label for="registerEmail">
+                            Correo electrónico
+                        </label>
+
+                        <input
+                            type="email"
+                            id="registerEmail"
+                            placeholder="ejemplo@correo.com"
+                            required
+                        >
+
+                        <label for="registerPassword">
+                            Contraseña
+                        </label>
+
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            placeholder="Mínimo 6 caracteres"
+                            minlength="6"
+                            required
+                        >
+
+                        <label for="registerRole">
+                            Tipo de usuario
+                        </label>
+
+                        <select id="registerRole" required>
+                            <option value="">Selecciona un rol</option>
+                            <option value="usuario">Usuario</option>
+                            <option value="empleado">Empleado</option>
+                        </select>
+
+                        <button type="submit" class="btn-primary">
+                            Crear cuenta
+                        </button>
+
+                    </form>
+
+                    <p class="form-switch">
+                        ¿Ya tienes una cuenta?
+
+                        <button onclick="mostrarLogin()">
+                            Iniciar sesión
+                        </button>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         PANEL PRINCIPAL
+         ========================= -->
+
+    <div id="dashboardPage" class="dashboard hidden">
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div class="header-left">
+
+                <div class="logo">
+                    <span class="logo-cuadro">GG</span>
+
+                    <div>
+                        <strong>COPACI</strong>
+                        <small>Granjas Guadalupe</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <nav>
+
+                <a href="#inicio">Inicio</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#avisos">Avisos</a>
+
+                <button onclick="cerrarSesion()" class="logout">
+                    Cerrar sesión
+                </button>
+
+            </nav>
+
+        </header>
+
+
+        <!-- CONTENIDO -->
+
+        <main>
+
+            <section class="dashboard-hero" id="inicio">
+
+                <div>
+
+                    <span class="etiqueta">
+                        PANEL DE USUARIO
+                    </span>
+
+                    <h1 id="welcomeMessage">
+                        Bienvenido
+                    </h1>
+
+                    <p>
+                        Desde este panel puedes consultar la información
+                        disponible según tu rol dentro del sistema.
+                    </p>
+
+                </div>
+
+                <div class="user-card">
+
+                    <div class="user-avatar">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <strong id="userName">
+                            Usuario
+                        </strong>
+
+                        <span id="userRole">
+                            Usuario
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SERVICIOS -->
+
+            <section class="section" id="servicios">
+
+                <div class="section-title">
+
+                    <div>
+
+                        <span class="etiqueta">
+                            SERVICIOS
+                        </span>
+
+                        <h2>
+                            Opciones disponibles
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="cards" id="roleCards">
+
+                    <!-- Se llenará mediante JavaScript -->
+
+                </div>
+
+            </section>
+
+
+            <!-- AVISOS -->
+
+            <section class="section notices" id="avisos">
+
+                <div class="section-title">
+
+                    <div>
+
+                        <span class="etiqueta">
+                            ACTUALIDAD
+                        </span>
+
+                        <h2>
+                            Avisos importantes
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="notice-list">
+
+                    <article class="notice">
+
+                        <div class="notice-date">
+                            <strong>30</strong>
+                            <span>SEP</span>
+                        </div>
+
+                        <div>
+
+                            <span class="category">
+                                Comunidad
+                            </span>
+
+                            <h3>
+                                Reunión vecinal informativa
+                            </h3>
+
+                            <p>
+                                Consulta las próximas actividades
+                                y acuerdos de participación comunitaria.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="notice">
+
+                        <div class="notice-date">
+                            <strong>04</strong>
+                            <span>OCT</span>
+                        </div>
+
+                        <div>
+
+                            <span class="category">
+                                Servicios
+                            </span>
+
+                            <h3>
+                                Jornada de atención ciudadana
+                            </h3>
+
+                            <p>
+                                Espacio para orientar a vecinos sobre
+                                gestiones y servicios de la comunidad.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <div>
+
+                <strong>
+                    COPACI Granjas Guadalupe
+                </strong>
+
+                <p>
+                    Portal de información y gestión para la comunidad.
+                </p>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    Sistema de Gestión
+                </strong>
+
+                <p>
+                    © 2026 Todos los derechos reservados.
+                </p>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
+
